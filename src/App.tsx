@@ -1,26 +1,32 @@
+// src/App.tsx
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import { Navigate } from 'react-router-dom';
+import Home from './pages/Home';
+import { getAuth } from 'firebase/auth';
+import Settings from './components/Settings';
+const App: React.FC = () => {
+  const handleAuthSubmit = (formData: { email: string, password: string }) => {
+    console.log("Form submitted:", formData);
+  };
 
-function App() {
+ const isAuthenticated: boolean = !!getAuth;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      
+      <Routes>
+<Route path="/" element={<Navigate to="/login" />} />
+
+        <Route path="/login" element={<Login onSubmit={handleAuthSubmit} />} />
+        <Route path="/signup" element={<Signup onSubmit={handleAuthSubmit} />} />
+        <Route path="/home" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
+
+        <Route path="/settings" element = {<Settings/>}/>
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
