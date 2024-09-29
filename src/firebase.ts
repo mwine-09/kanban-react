@@ -8,8 +8,10 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+const firebase_key  = process.env.REACT_APP_FIREBASE_API_KEY
 const firebaseConfig = {
-  apiKey: "AIzaSyAfMtJ9NrKfF7ix3nBukJVHccmE0VIQyUs",
+  apiKey: firebase_key,
   authDomain: "kanban-react-d00dd.firebaseapp.com",
   projectId: "kanban-react-d00dd",
   storageBucket: "kanban-react-d00dd.appspot.com",
